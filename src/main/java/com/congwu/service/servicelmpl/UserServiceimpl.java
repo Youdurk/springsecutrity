@@ -44,8 +44,8 @@ public class UserServiceimpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean emailsend() {
-        String key="yanzhen";
+    public boolean emailsend(String email) {
+        String key="yanzhen"+email;
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(mail);
         message.setTo(mail);
@@ -58,10 +58,12 @@ public class UserServiceimpl implements UserService, UserDetailsService {
         return false;
     }
 
-    public  String ss(){
-        String key="yanzhen";
-
-        return  stringRedisTemplate.opsForValue().get(key);
-    }
+//    public  String ss(){
+//        String key="yanzhen";
+//        int code= RandomUtil.randomInt(50,100);
+//        System.out.printf(""+code);
+//        stringRedisTemplate.opsForValue().set(key, String.valueOf(code));
+//        return  stringRedisTemplate.opsForValue().get(key);
+//    }
 
 }

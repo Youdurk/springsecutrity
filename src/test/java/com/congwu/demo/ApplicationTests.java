@@ -47,9 +47,9 @@ class ApplicationTests {
 //        System.out.printf(""+code);
 //        message.setText("你的验证码为："+code);
 //        mailSender.send(message);
-        String key="yanzhen";
-    String code=userServiceimpl.ss();
-        System.out.printf(""+code);
+//        String key="yanzhen";
+//    String code=userServiceimpl.ss();
+//        System.out.printf(""+code);
     }
 
 

@@ -10,8 +10,8 @@ spring:
     password: mmfcsuuthgsndjjg
   redis:
     host: localhost
-    port: 3356
-    database: 1
+    port: 6379
+    database: 0
 server:
   port: 9090
 #  sql语句打印

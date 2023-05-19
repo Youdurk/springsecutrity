@@ -38,6 +38,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
+                .antMatchers("/api/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().formLogin()

@@ -4,5 +4,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    boolean emailsend();
+    boolean emailsend(String email);
 }

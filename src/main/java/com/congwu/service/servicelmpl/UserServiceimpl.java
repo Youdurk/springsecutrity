@@ -45,16 +45,18 @@ public class UserServiceimpl implements UserService, UserDetailsService {
 
     @Override
     public boolean emailsend(String email) {
-        String key="yanzhen"+email;
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(mail);
-        message.setTo(mail);
-        message.setSubject("测试");
-        int code= RandomUtil.randomInt(50,100);
-        System.out.printf(""+code);
-        stringRedisTemplate.opsForValue().set(key, String.valueOf(code));
-        message.setText("你的验证码为："+code);
-        mailSender.send(message);
+        if (email !=null){
+            String key="yanzhen"+email;
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(mail);
+            message.setTo(email);
+            message.setSubject("测试");
+            int code= RandomUtil.randomInt(50,100);
+            stringRedisTemplate.opsForValue().set(key, String.valueOf(code),60);
+            message.setText("你的验证码为："+code);
+            mailSender.send(message);
+            return true;
+        }
         return false;
     }
 

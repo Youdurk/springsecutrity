@@ -1,14 +1,14 @@
-package com.congwu.entity;
+package com.congwu.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("stu")
-public class User {
+public class UserDto {
     private int id;
     private  String username;
     private String password;
+    private String password_repeat;
     private String role;
     private String eamil;
+    private String code;
 }

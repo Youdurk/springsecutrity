@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 public class Result {
     private String code;
     private String msg;
-    private Object date;
+    private Object data;
 
 
     public  static  Result seccess(){
         return new Result("200","",null);
     }
-    public  static  Result seccess(Object date){
-        return new Result("200","",date);
+    public  static  Result seccess(Object data){
+        return new Result("200","",data);
     }
     public  static  Result error(String code){
         return new Result(code,"",null);

@@ -15,6 +15,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.Resource;
@@ -32,8 +33,9 @@ class ApplicationTests {
     UserServiceimpl userServiceimpl;
     @Test
     void contextLoads() {
-//        user user= (user) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        System.out.print("" + user);
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+
+        System.out.print("" + authentication.getPrincipal());
 //        QueryWrapper<user> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.lambda().eq(user::getUsername,"admin");
 //        user u= userMapper.selectOne(queryWrapper);

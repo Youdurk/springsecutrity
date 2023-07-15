@@ -1,5 +1,6 @@
 package com.congwu.service.servicelmpl;
 
+import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -7,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.congwu.entity.Users;
 import com.congwu.entity.dto.UserDto;
+import com.congwu.exception.ServiceException;
 import com.congwu.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,10 +35,11 @@ public class UserServiceimpl implements UserService, UserDetailsService {
     MailSender mailSender;
     @Resource
     StringRedisTemplate stringRedisTemplate;
+
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if(username ==null){
+        if(username ==null && username.equals(" ")){
             throw new UsernameNotFoundException("用户名不能为空");
         }
         QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
@@ -69,7 +72,7 @@ public class UserServiceimpl implements UserService, UserDetailsService {
 
     @Override
     public boolean regint(UserDto user) {
-        String key="yanzhen"+user.getEamil();
+        String key="yanzhen"+user.getEmail();
        if (user !=null){
            String code=stringRedisTemplate.opsForValue().get(key);
            if (code.equals(null) && code.equals("")){
@@ -79,17 +82,17 @@ public class UserServiceimpl implements UserService, UserDetailsService {
                LambdaQueryWrapper<Users> wrapper = new LambdaQueryWrapper<>();
                wrapper.eq(Users::getUsername,user.getUsername());
                Users usr=  userMapper.selectOne(wrapper);
-               if (usr==null){
+               if (ObjUtil.equal(null,usr)){
                    Users us = new Users();
                    us.setUsername(user.getUsername());
                    us.setPassword(encoder.encode(user.getPassword()));
-                   us.setEmali(user.getEamil());
+                   us.setEmali(user.getEmail());
                    stringRedisTemplate.delete(key);
                    userMapper.insert(us);
                    return true;
                }else
                {
-                   return false;
+                   throw  new ServiceException("400","系统错误");
                }
 
            }else {

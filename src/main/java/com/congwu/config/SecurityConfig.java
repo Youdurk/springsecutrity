@@ -38,7 +38,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
-                .antMatchers("/api/**")
+                .antMatchers("/api/useer/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -68,8 +68,11 @@ public class SecurityConfig {
     }
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class).userDetailsService(userServiceimpl)
-                .and().build();
+        return http
+                .getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userServiceimpl)
+                .and()
+                .build();
     }
     @Bean
     public PersistentTokenRepository tokenRepository(){
@@ -107,7 +110,7 @@ public class SecurityConfig {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setCharacterEncoding("utf-8");
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(JSONUtil.toJsonStr(Result.error("400")));
+        response.getWriter().write(JSONUtil.toJsonStr(Result.error("400","ddd")));
 
     }
 }

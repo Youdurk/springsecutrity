@@ -9,6 +9,6 @@ public class UserDto {
     private String password;
     private String password_repeat;
     private String role;
-    private String eamil;
+    private String email;
     private String code;
 }
